@@ -1,0 +1,49 @@
+// ----------------------------------
+// RSDK Project: Sonic 1
+// Script Description: Solid Block Object
+// Script Author: Christian Whitehead/Simon Thomley
+// Unpacked by Rubberduckycooly's script unpacker
+// ----------------------------------
+
+// ========================
+// Function Declarations
+// ========================
+
+// ========================
+// Events
+// ========================
+
+event ObjectUpdate
+end event
+
+
+event ObjectDraw
+	DrawSpriteXY(0, object.xpos, object.ypos)
+end event
+
+
+event ObjectStartup
+	LoadSpriteSheet("GPZ/Objects.gif")
+	SpriteFrame(-8, -8, 16, 16, 130, 35)
+	
+	foreach (TypeName[Decorative Sprite], arrayPos0, ALL_ENTITIES)
+		object[arrayPos0].drawOrder = 4
+	next
+end event
+
+
+// ========================
+// Editor Events
+// ========================
+
+event RSDKDraw
+	DrawSprite(0)
+end event
+
+
+event RSDKLoad
+	LoadSpriteSheet("GPZ/Objects.gif")
+	SpriteFrame(-8, -8, 16, 16, 130, 35)
+	
+	SetVariableAlias(ALIAS_VAR_PROPVAL, "unused")
+end event

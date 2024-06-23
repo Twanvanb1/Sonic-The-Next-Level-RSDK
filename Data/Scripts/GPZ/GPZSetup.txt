@@ -1,0 +1,261 @@
+// ----------------------------------
+// RSDK Project:  Sonic 1: The Next Level
+// Script Description:    GPZ Setup Object 
+// Script Author: Louplayer/Twanvanb1
+// ----------------------------------
+
+// ========================
+// Aliases
+// ========================
+
+private alias object.value0 : object.astroidTimer
+private alias object.value1 : object.astroidFrame
+private alias object.value2 : object.smallGearTimer
+private alias object.value3 : object.smallGearFrame
+private alias object.value4 : object.bigGearTimer
+private alias object.value5 : object.bigGearFrame
+private alias object.value6 : object.paletteTimer
+private alias object.value7 : object.paletteRow
+
+
+
+private alias object.value25 : player.gravityStrength
+
+private alias object.value31 : object.deformAmount
+private alias object.value32 : object.deformEnable
+
+// Tracks
+private alias 0 : TRACK_STAGE
+private alias 1 : TRACK_ACTFINISH
+private alias 2 : TRACK_INVINCIBLE
+private alias 3 : TRACK_CONTINUE
+private alias 4 : TRACK_BOSS
+private alias 5 : TRACK_GAMEOVER
+private alias 6 : TRACK_DROWNING
+private alias 7 : TRACK_SUPER
+
+// Deformation Layer
+private alias 2	:	DEFORM_BG
+
+// Reserved Object Slots Aliases
+private alias 10 : SLOT_ZONESETUP
+private alias 25 : SLOT_MUSICEVENT_CHANGE
+private alias 26 : SLOT_MUSICEVENT_BOSS
+
+// Music Events
+private alias 0 : MUSICEVENT_FADETOBOSS
+private alias 1 : MUSICEVENT_FADETOSTAGE
+private alias 2 : MUSICEVENT_TRANSITION
+
+private alias 0 : MUSICEVENT_FLAG_NOCHANGE
+private alias 1 : MUSICEVENT_FLAG_SPEEDUP
+private alias 2 : MUSICEVENT_FLAG_SLOWDOWN
+
+// Music Loops
+
+private alias 1 : MUSIC_LOOP_GPZ01
+private alias 1 : MUSIC_LOOP_GPZ02
+private alias 1 : MUSIC_LOOP_GPZ03
+private alias 502294 : MUSIC_LOOP_GPZ_F
+
+private alias 38679  : MUSIC_LOOP_INV
+private alias 30897  : MUSIC_LOOP_INV_F
+
+// ========================
+// Function Declarations
+// ========================
+
+// ========================
+// Static Values
+// ========================
+
+// ========================
+// Tables
+// ========================
+
+private table GPZSetup_palCycleAct3
+	0x404000, 0x00a000, 0x0000e0
+	0x202000, 0x008000, 0x0000c0
+	0xe0e000, 0x006000, 0x0000a0
+	0x006000, 0x004000, 0x000080
+	0xa0a000, 0x002000, 0x000060
+	0x808000, 0x00e000, 0x000040
+	0x606000, 0x00c000, 0x000020
+end table
+
+private table GPZSetup_act2PalCycle
+	0xc0e0e0, 0x80e0e0, 0x40c0e0, 0x40a0e0, 0x2060e0, 0x0020e0 //Blue
+	0xc0e0c0, 0x80e0c0, 0x40c0c0, 0x40a0c0, 0x2060c0, 0x0020c0
+	0xc0e0a0, 0x80e0a0, 0x40c0a0, 0x40a0a0, 0x2060a0, 0x0020a0
+	0xc0e080, 0x80e080, 0x40c080, 0x40a080, 0x206080, 0x002080
+	0xc0e080, 0x80e060, 0x40c060, 0x40a060, 0x206060, 0x002060
+	0xc0e080, 0x80e040, 0x40c040, 0x40a040, 0x206040, 0x002040
+	0xc0e080, 0x80e040, 0x40c020, 0x40a020, 0x206020, 0x002020
+	0xe0e080, 0xe0e040, 0xe0c020, 0xe0a020, 0xe06020, 0xe02020 //Red
+	0xc0e080, 0xc0e040, 0xc0c000, 0xc0a000, 0xc06000, 0xc02000
+	0xc0e080, 0xa0e040, 0xa0c000, 0xa0a000, 0xa06000, 0xa02000
+	0xc0e080, 0x80e040, 0x80c000, 0x80a000, 0x806000, 0x802000
+	0xc0e080, 0x80e040, 0x60c000, 0x60a000, 0x606000, 0x602000
+	0xc0e080, 0x80e040, 0x40c000, 0x40a000, 0x406000, 0x402000
+	0xc0e080, 0x80e040, 0x40c020, 0x40a020, 0x206020, 0x002020
+end table
+
+private table GPZSetup_bossPalCycle
+	
+end table
+
+private table GPZSetup_palCycleDelayAct2
+	4, 5, 4, 5, 4, 5, 4, 5, 4, 5, 4, 5, 4, 5
+end table
+
+// ========================
+// Function Definitions
+// ========================
+
+// ========================
+// Events
+// ========================
+
+event ObjectUpdate
+	switch stage.actnum
+	case 1	
+		object.astroidTimer++
+		if object.astroidTimer > 3
+			object.astroidTimer = 0 
+			object.astroidFrame++
+			object.astroidFrame %= 16
+			
+			temp0 = 459
+			temp0 += object.astroidFrame
+			Copy16x16Tile(8, temp0)
+			temp0 += 16
+			Copy16x16Tile(9, temp0)
+			temp0 += 16
+			Copy16x16Tile(10, temp0)
+			temp0 += 16
+			Copy16x16Tile(11, temp0)
+			temp0 += 16
+			Copy16x16Tile(12, temp0)
+			temp0 += 16
+			Copy16x16Tile(13, temp0)
+			temp0 += 16
+			Copy16x16Tile(14, temp0)
+			temp0 += 16
+			Copy16x16Tile(15, temp0)
+		end if
+		break
+	case 2
+		object.paletteTimer++
+		GetTableValue(temp1, object.paletteRow, GPZSetup_palCycleDelayAct2)
+		if object.paletteTimer == temp1
+			object.paletteTimer = 0
+
+			object.paletteRow++
+			object.paletteRow %= 14
+
+			arrayPos0 = object.paletteRow
+			arrayPos0 += 14
+			arrayPos0 %= 14
+			arrayPos0 *= 6
+			temp0 = 0
+			while temp0 < 6
+				temp1 = 167
+				temp1 += temp0
+				GetTableValue(temp2, arrayPos0, GPZSetup_act2PalCycle)
+				SetPaletteEntry(0, temp1, temp2)
+				arrayPos0++
+				temp0++
+			loop			
+		end if
+
+		object.smallGearTimer++
+		if object.smallGearTimer > 3
+			object.smallGearTimer = 0 
+			object.smallGearFrame++
+			object.smallGearFrame %= 4
+			
+			
+			temp0 = object.smallGearFrame
+			temp0 += 400
+			Copy16x16Tile(104, temp0)
+			
+		end if
+
+		object.bigGearTimer++
+		if object.bigGearTimer == 2
+			object.bigGearTimer = 0 
+			object.bigGearFrame += 2
+			object.bigGearFrame %= 14
+			
+			temp0 = 404
+			temp0 += object.bigGearFrame
+			Copy16x16Tile(106, temp0)
+			Copy16x16Tile(107, temp0)
+			temp0++
+			Copy16x16Tile(108, temp0)
+			Copy16x16Tile(109, temp0)
+		end if
+		break
+		
+	case 3
+		object.paletteTimer++
+		if object.paletteTimer > 8
+			object.paletteTimer = 0
+
+			object.paletteRow++
+			object.paletteRow %= 7
+
+			arrayPos0 = object.paletteRow
+			arrayPos0 += 7
+			arrayPos0 %= 7
+			arrayPos0 *= 3
+			temp0 = 0
+			while temp0 < 3
+				temp1 = 189
+				temp1 += temp0
+				GetTableValue(temp2, arrayPos0, GPZSetup_palCycleAct3)
+				SetPaletteEntry(0, temp1, temp2)
+				arrayPos0++
+				temp0++
+			loop			
+		end if
+		break
+	end switch
+end event
+
+event ObjectDraw
+end event
+
+event ObjectStartup
+	switch stage.actnum
+	case 1
+		SetMusicTrack("GustPlanet1.ogg", TRACK_STAGE, MUSIC_LOOP_GPZ01)
+		break
+	case 2
+		SetMusicTrack("GustPlanet2.ogg", TRACK_STAGE, MUSIC_LOOP_GPZ02)
+		break
+	case 3
+		SetMusicTrack("GustPlanet3.ogg", TRACK_STAGE, MUSIC_LOOP_GPZ03)
+		break
+	end switch
+
+	animalType1 = TypeName[Flicky]
+	animalType2 = TypeName[Ricky]
+	object[SLOT_ZONESETUP].type = TypeName[GPZ Setup]
+	object[SLOT_ZONESETUP].priority = PRIORITY_ACTIVE
+end event
+
+// ========================
+// Editor Events
+// ========================
+
+event RSDKDraw
+  DrawSprite(0)
+end event
+
+event RSDKLoad
+  LoadSpriteSheet("Global/Display.gif")
+  SpriteFrame(-16, -16, 32, 32, 1, 143)
+
+  SetVariableAlias(ALIAS_VAR_PROPVAL, "unused")
+end event
