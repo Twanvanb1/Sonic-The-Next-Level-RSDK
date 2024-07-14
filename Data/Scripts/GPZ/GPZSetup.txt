@@ -101,7 +101,14 @@ private table GPZSetup_act2PalCycle
 end table
 
 private table GPZSetup_bossPalCycle
-	
+	0x00E0E0, 0x00C0E0, 0x00A0E0, 0x0080E0, 0x0060E0, 0x0040E0, 0x0020E0, 0x0000E0
+	0x2000E0, 0x4000E0, 0x6000E0, 0x8000E0, 0xA000E0, 0xC000E0, 0xE000E0, 0xE000C0
+	0xE000A0, 0xE00080, 0xE00060, 0xE00040, 0xE00020, 0xE00000, 0xE02000, 0xE04000
+	0xE06000, 0xE08000, 0xE0A000, 0xE0C000, 0xE0E000, 0xC0E000, 0xA0E000, 0x80E000
+	0x60E000, 0x40E000, 0x20E000, 0x00E000, 0x00E020, 0x00E040, 0x00E060, 0x00E080
+	0x00E0A0, 0x00E0C0, 0x800080, 0x000000, 0x000040, 0x404080, 0x8080C0, 0xC0C0E0
+	0xE0E0E0, 0xC0E060, 0x80E040, 0x40C000, 0x208000, 0x002000, 0x400000, 0x800000
+	0xC04000, 0xE08000
 end table
 
 private table GPZSetup_palCycleDelayAct2
@@ -220,8 +227,25 @@ event ObjectUpdate
 			loop			
 		end if
 		break
+
+	case 4 // yes this is the boss act
+	object.paletteTimer++
+		if object.paletteTimer == 4
+			object.paletteRow++
+			object.paletteRow %= 56
+			object.paletteTimer = 0
+			temp1 = object.paletteRow
+			temp2 = 176
+			while temp2 <= 191
+				GetTableValue(temp0, temp1, GPZSetup_act2PalCycle)
+				SetPaletteEntry(0, temp2, temp0)
+				temp1++
+				temp2++
+			loop
+		end if
+		break
 	end switch
-end event
+end event 
 
 event ObjectDraw
 end event
