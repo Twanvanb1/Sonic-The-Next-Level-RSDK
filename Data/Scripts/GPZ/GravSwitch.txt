@@ -64,6 +64,15 @@ private function GravSwitch_GravChange
 	end if
 end function
 
+private function GravSwitch_HandleDeform
+	if object.deformAmount > -1
+		tileLayer[0].deformationOffset++
+		SetLayerDeformation(0, 3, object.deformAmount, 0, 0, 0)
+	else
+		SetLayerDeformation(0, 3, 0, 0, 0, 0)
+	end if
+end function
+
 // ========================
 // Events
 // ========================
@@ -105,8 +114,7 @@ event ObjectUpdate
 end event
 
 event ObjectDraw
-	tileLayer[0].deformationOffset++
-	SetLayerDeformation(0, 3, object.deformAmount, 0, 0, 0)
+	callFunction(GravSwitch_HandleDeform)
 	
 	object.frame = object.stood
 	DrawSprite(object.frame)
