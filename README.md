@@ -1,15 +1,18 @@
 # **Sonic: The Next Level RSDK**
- A unofficial RSDKv4 Port of Sonic:The Next Level
+![](Resources/LogoRSDK.png)
 	
 # FAQ
 ### Q: I found a bug!
-A: Submit them under the `issues` tab and we will try to fix it.
+A: Submit them under the `issues` tab and I will try to fix it.
 
 ### Q: I have a feature request. Will you add it? 
-A: Most likely not, this will be a straight port of the Mega Drive/Genesis Romhack
+A: Most likely not, this will be a straight port of the Mega Drive/Genisis
 
 ### Q: When will this be finished?
-A: It's done whenever it's done. Nobody runs on a deadline, it's all done based on motivation & time.
+A: It's done whenever it is done. Nobody runs on a deadline, it's all done based on motivation & time.
+
+### Q: Will there be an Android, iOS, Steam Deck, etc port?
+A: Everything in this project comes as-is. If it doesn't run on a specific platform, don't get your hopes up on it being fixed.
 
 # Credits
 * MarkeyJester (for the original romhack)
