@@ -32,6 +32,7 @@ private alias 10 : SLOT_ZONESETUP
 reserve function GravSwitch_DebugDraw
 reserve function GravSwitch_DebugSpawn
 reserve function GravSwitch_GravChange
+reserve function GravSwitch_Deform
 
 // ========================
 // Static Values
@@ -44,6 +45,32 @@ reserve function GravSwitch_GravChange
 // ========================
 // Function Definitions
 // ========================
+
+private function GravSwitch_Deform
+	//Reset array position:
+	arrayPos0 = 0
+	
+	//Loop time!!
+	while arrayPos0 < 0x200
+	
+		//Odd number of the loop
+		temp0 = arrayPos0
+		temp0 %= 2
+		
+		//Reset the scanline offset then move it to the right
+		stage.deformationData0[arrayPos0] = 0	
+		stage.deformationData0[arrayPos0] += object.deformAmount
+		
+		//If odd move the scanline to the left
+		if temp0 == 1
+			stage.deformationData0[arrayPos0] = 0
+			stage.deformationData0[arrayPos0] -= object.deformAmount
+		end if
+		
+		//Add for the loop!
+		arrayPos0++
+	loop
+end function
 
 private function GravSwitch_DebugDraw
 	DrawSprite(0)
@@ -67,15 +94,15 @@ end function
 private function GravSwitch_HandleDeform
 	if object.deformAmount > -1
 		tileLayer[0].deformationOffset++
-		SetLayerDeformation(0, 3, object.deformAmount, 0, 0, 0)
-	else
-		SetLayerDeformation(0, 3, 0, 0, 0, 0)
+		CallFunction(GravSwitch_Deform)
 	end if
 end function
 
 // ========================
 // Events
 // ========================
+
+//COMMENT YOUR SHIT THIS IS SO UGLY TO LOOK AT!!!
 
 event ObjectUpdate
 	object.stood = false
@@ -84,8 +111,15 @@ event ObjectUpdate
 			BoxCollisionTest(C_SOLID, object.entityPos, -14, -4, 14, 12, currentPlayer, C_BOX, C_BOX, C_BOX, C_BOX)
 			if checkResult == COL_TOP
 				object.stood = true
-				PlaySfx(SfxName[Button Press], false)
-				object.deformAmount = 30
+				
+				//Play the sounds
+				if player[currentPlayer].gravityStrength == 0x3800
+					PlaySfx(SfxName[Gravity On], false)
+				else
+					PlaySfx(SfxName[Gravity Off], false)
+				end if
+				
+				object.deformAmount = 24
 				callFunction(GravSwitch_GravChange)
 			end if
 		else
@@ -129,6 +163,7 @@ event ObjectStartup
 	SetTableValue(GravSwitch_DebugDraw, DebugMode_ObjCount, DebugMode_DrawTable)
 	SetTableValue(GravSwitch_DebugSpawn, DebugMode_ObjCount, DebugMode_SpawnTable)
 	DebugMode_ObjCount++
+	
 end event
 
 // ========================
