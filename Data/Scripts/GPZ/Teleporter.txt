@@ -110,8 +110,13 @@ public function Teleporter_Launching
         PlaySfx(SfxName[Rolling], false)
     end if
 
+    //Play the release sound
+    if object.launchTimer == 40
+        PlaySfx(SfxName[Release], false)
+    end if
+
     //Accelerate
-    if object.launchTimer > 60
+    if object.launchTimer > 40
         object.hasLaunched = true
         player[currentPlayer].xpos += 0x80000
     end if

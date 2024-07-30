@@ -1,0 +1,68 @@
+// ----------------------------------
+// RSDK Project:  Next Level RSDKv4
+// Script Description: Launcher Object 
+// Script Author: Dark
+// ----------------------------------
+
+// ========================
+// Aliases
+// ========================
+
+// ========================
+// Function Declarations
+// ========================
+
+// ========================
+// Static Values
+// ========================
+
+// ========================
+// Tables
+// ========================
+
+// ========================
+// Function Definitions
+// ========================
+
+// ========================
+// Events
+// ========================
+
+event ObjectUpdate
+	
+end event
+
+event ObjectDraw
+	DrawSprite(0)
+end event
+
+event ObjectStartup
+	LoadSpriteSheet("GPZ/Objects.gif")
+
+	SpriteFrame(-16, -16, 32, 32, 149, 26)
+    SpriteFrame(-24, -16, 48, 32, 182, 26)
+end event
+
+// ========================
+// Editor Events
+// ========================
+
+event RSDKDraw
+	DrawSprite(0)
+
+    temp0 = object.ypos
+    temp0 >>= 16
+    temp0 += 32
+    temp0 <<= 16
+
+    DrawSpriteXY(1, object.xpos, temp0)
+end event
+
+event RSDKLoad
+	LoadSpriteSheet("GPZ/Objects.gif")
+
+    SpriteFrame(-16, -16, 32, 32, 149, 26)
+    SpriteFrame(-24, -16, 48, 32, 182, 26)
+
+	SetVariableAlias(ALIAS_VAR_PROPVAL, "unused")
+end event
