@@ -7,6 +7,26 @@
 // ========================
 // Aliases
 // ========================
+private alias object.value0 : object.xstart
+private alias object.value1 : object.ystart
+private alias object.value2 : object.range
+private alias object.value3 : object.sinTimer
+private alias object.value4 : object.capture
+private alias object.value5 : object.rotSpeed
+private alias object.value6 : object.releaseTimer
+
+// Player Aliases
+private alias object.xpos : player.xpos
+private alias object.ypos : player.ypos
+private alias object.xvel : player.xvel
+private alias object.yvel : player.yvel
+private alias object.controlMode : player.controlMode 
+private alias object.tileCollisions : player.tileCollisions  
+private alias object.gravity : player.gravity   
+private alias object.speed	: player.speed	
+private alias object.state	: player.state
+private alias object.animationSpeed	 : player.animationSpeed
+private alias object.animation : player.animation
 
 // ========================
 // Function Declarations
@@ -29,14 +49,118 @@
 // ========================
 
 event ObjectUpdate
-	
+    //Change the property
+    object.priority = PRIORITY_ACTIVE
+    
+    //Rotate the gimmick
+    temp0 = object.rotSpeed
+    temp0 >>= 16
+    object.sinTimer += temp0
+    print(temp0, true, true)
+
+    //Horizontal sine
+    Sin256(object.range, object.sinTimer)
+    object.range *= 0x2000
+    object.xpos = object.xstart
+    object.xpos += object.range
+
+    //Vertical sine
+    Cos256(object.range, object.sinTimer)
+    object.range *= 0x2000
+    object.ypos = object.ystart
+    object.ypos += object.range
+
+    if object.capture == false
+        //These swing physics suck cock
+        Sin256(temp1, object.sinTimer)
+        temp1 *= 10
+        temp1 /= 5
+        temp1 <<= 2
+        object.rotSpeed *= 199
+        object.rotSpeed /= 200
+        object.rotSpeed -= temp1
+
+        Sin256(temp2, object.sinTimer)
+        temp3 = object.rotSpeed
+        temp3 >>= 16
+
+        //Dogshit fix
+        if temp2 > 0
+            if temp3 == 0
+            object.sinTimer -= 1
+            end if
+        end if
+
+        if temp2 < 0
+            if temp3 == 0
+            object.sinTimer += 1
+            end if
+        end if
+        
+
+    end if
+
+    //Release cool down
+    if object.releaseTimer > 0
+        object.releaseTimer--
+    end if
+
+    //Player code
+    foreach (GROUP_PLAYERS, currentPlayer, ACTIVE_ENTITIES)
+        temp4 = player[currentPlayer].xvel
+        Abs(temp4)
+        Print(temp4, 1, 1)
+        BoxCollisionTest(C_TOUCH, object.entityPos, -8, -8, 8, 8, currentPlayer, C_BOX, C_BOX, C_BOX, C_BOX)
+        if checkResult == true
+            if object.capture == false
+                if temp4 > 0x30000
+                if object.releaseTimer == 0
+                    object.sinTimer = 0
+                    object.capture = true
+                    object.rotSpeed = player[currentPlayer].xvel
+                end if
+            end if
+        end if
+
+        if object.capture == true
+            player[currentPlayer].animation = 10
+            player[currentPlayer].controlMode = -1
+            player[currentPlayer].tileCollisions = 0
+            player[currentPlayer].gravity = false
+            player[currentPlayer].xvel = 0
+            player[currentPlayer].yvel = 0
+            player[currentPlayer].speed = 0
+            player[currentPlayer].state = Player_State_Air
+            player[currentPlayer].xpos = object.xpos
+            player[currentPlayer].ypos = object.ypos
+
+            //Release
+            if object.sinTimer > 256
+                object.releaseTimer = 30
+                player[currentPlayer].gravity = true
+                player[currentPlayer].controlMode = 0
+                player[currentPlayer].tileCollisions = true
+                player[currentPlayer].speed = 0x100000
+                player[currentPlayer].state = Player_State_Ground
+                player[currentPlayer].animation = 10
+                object.capture = false
+            end if
+        end if
+    next
+
 end event
 
 event ObjectDraw
-	DrawSprite(0)
+    DrawSpriteXY(0, object.xstart, object.ystart)
+	DrawSpriteXY(1, object.xpos, object.ypos)
 end event
 
 event ObjectStartup
+    foreach (TypeName[Launcher], arrayPos0, ALL_ENTITIES)
+        object[arrayPos0].xstart = object[arrayPos0].xpos
+        object[arrayPos0].ystart = object[arrayPos0].ypos
+    next
+
 	LoadSpriteSheet("GPZ/Objects.gif")
 
 	SpriteFrame(-16, -16, 32, 32, 149, 26)
