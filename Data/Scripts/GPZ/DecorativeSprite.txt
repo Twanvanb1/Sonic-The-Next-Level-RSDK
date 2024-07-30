@@ -1,8 +1,7 @@
 // ----------------------------------
-// RSDK Project: Sonic 1
-// Script Description: Solid Block Object
-// Script Author: Christian Whitehead/Simon Thomley
-// Unpacked by Rubberduckycooly's script unpacker
+// RSDK Project: Sonic 1: The next level RSDK
+// Script Description: Decorative Sprite Object
+// Script Author: Twanvanb1
 // ----------------------------------
 
 // ========================
@@ -27,7 +26,7 @@ event ObjectStartup
 	SpriteFrame(-8, -8, 16, 16, 130, 35)
 	
 	foreach (TypeName[Decorative Sprite], arrayPos0, ALL_ENTITIES)
-		object[arrayPos0].drawOrder = 4
+		object[arrayPos0].drawOrder = 5
 	next
 end event
 
