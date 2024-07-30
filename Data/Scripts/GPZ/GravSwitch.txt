@@ -83,9 +83,9 @@ end function
 private function GravSwitch_GravChange
 	if player[currentPlayer].gravityStrength == 0x3800
 		
-		player[currentPlayer].gravityStrength = 0x2000
+		player[currentPlayer].gravityStrength = 0x1C00
 	else
-		if player[currentPlayer].gravityStrength == 0x2000
+		if player[currentPlayer].gravityStrength == 0x1C00
 			player[currentPlayer].gravityStrength = 0x3800
 		end if
 	end if
