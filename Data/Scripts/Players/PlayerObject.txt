@@ -1952,7 +1952,6 @@ public function Player_State_Peelout
 end function
 
 // Handles walking animation speed
-// All characters share the same routine
 public function Player_HandleWalkAnimSpeed
 	player.animationSpeed = player.speed
 
@@ -1962,9 +1961,15 @@ public function Player_HandleWalkAnimSpeed
 	end if
 
 	// Do some maths
-	player.animationSpeed *= 60
-	player.animationSpeed /= 0x60000
-	player.animationSpeed += 20
+	if player.character == PLAYER_SONIC_A
+		player.animationSpeed *= 120
+		player.animationSpeed /= 0x60000
+		player.animationSpeed += 20
+	else
+		player.animationSpeed *= 60
+		player.animationSpeed /= 0x60000
+		player.animationSpeed += 20
+	end if	
 end function
 
 
@@ -1979,8 +1984,13 @@ public function Player_HandleRunAnimSpeed
 	end if
 
 	// Do some (admittedly less complex) maths to get the final speed
-	player.animationSpeed *= 80
-	player.animationSpeed /= 0x60000
+	if player.character == PLAYER_SONIC_A
+		player.animationSpeed *= 160
+		player.animationSpeed /= 0x60000
+	else
+		player.animationSpeed *= 80
+		player.animationSpeed /= 0x60000
+	end if
 end function
 
 
@@ -3428,13 +3438,25 @@ public function Player_State_Ground
 					player.animation = ANI_WALKING
 					CallFunction(Player_HandleWalkAnimSpeed)
 				else
-					if player.speed > 0x9FFFF
-						player.animation = ANI_PEELOUT
-					else
-						player.animation = ANI_RUNNING
-					end if
-
-					CallFunction(Player_HandleRunAnimSpeed)
+					switch player.character
+					case PLAYER_SONIC_A
+						if player.speed > 0xC0000
+							player.animation = ANI_PEELOUT
+						else
+							player.animation = ANI_RUNNING
+						end if
+						CallFunction(Player_HandleRunAnimSpeed)
+						break
+					case PLAYER_TAILS_A
+					case PLAYER_KNUCKLES_A
+						if player.speed > 0x70000
+							player.animation = ANI_PEELOUT
+						else
+							player.animation = ANI_RUNNING
+						end if
+						CallFunction(Player_HandleRunAnimSpeed)
+						break
+					end switch
 				end if
 			else
 				if player.speed > -0x5F5C2
