@@ -72,7 +72,7 @@ event ObjectUpdate
 		Rand(temp0, 16) 
 		CreateTempObject(TypeName[C Platform], 3, object.xpos, object.ypos)
 		object[tempObjectPos].ixpos -= 24
-		object[tempObjectPos].iypos -= 8
+		object[tempObjectPos].iypos -= 0
 		object[tempObjectPos].xvel = -0x15000
 		object[tempObjectPos].yvel = -0x17000
 		object[tempObjectPos].state = 3
@@ -82,7 +82,7 @@ event ObjectUpdate
 		Rand(temp0, 16) 
 		CreateTempObject(TypeName[C Platform], 3, object.xpos, object.ypos)
 		object[tempObjectPos].ixpos -= 8
-		object[tempObjectPos].iypos -= 8
+		object[tempObjectPos].iypos -= 0
 		object[tempObjectPos].xvel = -0x05500
 		object[tempObjectPos].yvel = -0x17000
 		object[tempObjectPos].state = 3
@@ -92,7 +92,7 @@ event ObjectUpdate
 		Rand(temp0, 16) 
 		CreateTempObject(TypeName[C Platform], 3, object.xpos, object.ypos)
 		object[tempObjectPos].ixpos += 8
-		object[tempObjectPos].iypos -= 8
+		object[tempObjectPos].iypos -= 0
 		object[tempObjectPos].xvel = 0x05500
 		object[tempObjectPos].yvel = -0x17000
 		object[tempObjectPos].state = 3
@@ -102,7 +102,7 @@ event ObjectUpdate
 		Rand(temp0, 16) 
 		CreateTempObject(TypeName[C Platform], 3, object.xpos, object.ypos)
 		object[tempObjectPos].ixpos += 24
-		object[tempObjectPos].iypos -= 8
+		object[tempObjectPos].iypos -= 0
 		object[tempObjectPos].xvel = 0x15000
 		object[tempObjectPos].yvel = -0x17000
 		object[tempObjectPos].state = 3
@@ -113,7 +113,7 @@ event ObjectUpdate
 		Rand(temp0, 16) 
 		CreateTempObject(TypeName[C Platform], 1, object.xpos, object.ypos)
 		object[tempObjectPos].ixpos -= 24
-		object[tempObjectPos].iypos += 8
+		object[tempObjectPos].iypos += 16
 		object[tempObjectPos].xvel = -0x10000
 		object[tempObjectPos].yvel = 0x17000
 		object[tempObjectPos].state = 3
@@ -123,7 +123,7 @@ event ObjectUpdate
 		Rand(temp0, 16) 
 		CreateTempObject(TypeName[C Platform], 1, object.xpos, object.ypos)
 		object[tempObjectPos].ixpos -= 8
-		object[tempObjectPos].iypos += 8
+		object[tempObjectPos].iypos += 16
 		object[tempObjectPos].xvel = -0x05000
 		object[tempObjectPos].yvel = 0x17000
 		object[tempObjectPos].state = 3
@@ -133,7 +133,7 @@ event ObjectUpdate
 		Rand(temp0, 16) 
 		CreateTempObject(TypeName[C Platform], 2, object.xpos, object.ypos)
 		object[tempObjectPos].ixpos += 8
-		object[tempObjectPos].iypos += 8
+		object[tempObjectPos].iypos += 16
 		object[tempObjectPos].xvel = 0x05000
 		object[tempObjectPos].yvel = 0x17000
 		object[tempObjectPos].state = 3
@@ -143,7 +143,7 @@ event ObjectUpdate
 		Rand(temp0, 16) 
 		CreateTempObject(TypeName[C Platform], 2, object.xpos, object.ypos)
 		object[tempObjectPos].ixpos += 24
-		object[tempObjectPos].iypos += 8
+		object[tempObjectPos].iypos += 16
 		object[tempObjectPos].xvel = 0x15000
 		object[tempObjectPos].yvel = 0x17000
 		object[tempObjectPos].state = 3
@@ -189,7 +189,7 @@ event ObjectUpdate
 	
 	if object.state < CPLAT_TILEDELAY
 		foreach (GROUP_PLAYERS, currentPlayer, ACTIVE_ENTITIES)
-			BoxCollisionTest(C_PLATFORM, object.entityPos, -32, -16, 32, 16, currentPlayer, C_BOX, C_BOX, C_BOX, C_BOX)
+			BoxCollisionTest(C_PLATFORM, object.entityPos, -32, -8, 32, 16, currentPlayer, C_BOX, C_BOX, C_BOX, C_BOX)
 			
 			if checkResult == true
 				if object.state == CPLAT_IDLE
@@ -239,7 +239,7 @@ event ObjectStartup
 	LoadSpriteSheet("GPZ/Objects.gif")
 	
 	// 0 - Base Sprite
-	SpriteFrame(-32, -16, 64, 32, 34, 1)
+	SpriteFrame(-32, -8, 64, 32, 34, 1)
 	
 	// 1 - Lower part of platfrom
 	SpriteFrame(-8, -8, 16, 16, 34, 17)
