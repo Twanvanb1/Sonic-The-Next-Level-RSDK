@@ -412,7 +412,7 @@ end event
 
 
 event ObjectDraw
-	DrawSprite(0)
+	DrawSpriteFX(0, FX_FLIP, object.xpos, object.ypos)
 
 	if object.propertyValue > MONITOR_BLANK
 		DrawSpriteFX(object.propertyValue, FX_INK, object.xpos, object.contentsPos.y)

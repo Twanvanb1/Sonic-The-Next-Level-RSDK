@@ -46,58 +46,57 @@ reserve function Teleporter_Launching
 // ========================
 public function Teleporter_Approach
     if object.hasLaunched == true
-        return
-    end if
-        object.generalSpeed = -0x19000
+    //    return
+    //end if
+	object.generalSpeed = -0x19000
 
-        Cos256(object.moveXSpeed, object.lookplayer)
-        object.moveXSpeed *= object.generalSpeed
-        object.moveXSpeed >>= 9
+	Cos256(object.moveXSpeed, object.lookplayer)
+	object.moveXSpeed *= object.generalSpeed
+	object.moveXSpeed >>= 9
 
-        Sin256(object.moveYSpeed, object.lookplayer)
-        object.moveYSpeed *= object.generalSpeed
-        object.moveYSpeed >>= 9
+	Sin256(object.moveYSpeed, object.lookplayer)
+	object.moveYSpeed *= object.generalSpeed
+	object.moveYSpeed >>= 9
 
-        //From left to center
-        if player[currentPlayer].xpos < object.xpos
-            player[currentPlayer].xpos += object.moveXSpeed
+	//From left to center
+	if player[currentPlayer].xpos < object.xpos
+		player[currentPlayer].xpos += object.moveXSpeed
 
-            //Clamp
-            if player[currentPlayer].xpos > object.xpos
-                player[currentPlayer].xpos = object.xpos
-            end if
-        end if
+		//Clamp
+		if player[currentPlayer].xpos > object.xpos
+			player[currentPlayer].xpos = object.xpos
+		end if
+	end if
 
-        //From right to center
-        if player[currentPlayer].xpos > object.xpos
-            player[currentPlayer].xpos += object.moveXSpeed
+	//From right to center
+	if player[currentPlayer].xpos > object.xpos
+		player[currentPlayer].xpos += object.moveXSpeed
 
-            //Clamp
-            if player[currentPlayer].xpos < object.xpos
-                player[currentPlayer].xpos = object.xpos
-            end if
-        end if
+		//Clamp
+		if player[currentPlayer].xpos < object.xpos
+			player[currentPlayer].xpos = object.xpos
+		end if
+	end if
 
-        //From left to center
-        if player[currentPlayer].ypos < object.ypos
-            player[currentPlayer].ypos += object.moveYSpeed
+	//From left to center
+	if player[currentPlayer].ypos < object.ypos
+		player[currentPlayer].ypos += object.moveYSpeed
 
-            //Clamp
-            if player[currentPlayer].ypos > object.ypos
-                player[currentPlayer].ypos = object.ypos
-            end if
-        end if
+		//Clamp
+		if player[currentPlayer].ypos > object.ypos
+			player[currentPlayer].ypos = object.ypos
+		end if
+	end if
 
-        //From right to center
-        if player[currentPlayer].ypos > object.ypos
-            player[currentPlayer].ypos += object.moveYSpeed
+	//From right to center
+	if player[currentPlayer].ypos > object.ypos
+		player[currentPlayer].ypos += object.moveYSpeed
 
-            //Clamp
-            if player[currentPlayer].ypos < object.ypos
-                player[currentPlayer].ypos = object.ypos
-            end if
-        end if
-    
+		//Clamp
+		if player[currentPlayer].ypos < object.ypos
+			player[currentPlayer].ypos = object.ypos
+		end if
+	end if
 end function
 
 public function Teleporter_Launching

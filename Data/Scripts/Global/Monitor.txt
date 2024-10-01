@@ -247,7 +247,7 @@ end event
 
 
 event ObjectDraw
-	DrawSprite(0)
+	DrawSpriteFX(0, FX_FLIP, object.xpos, object.ypos)
 
 	switch StageSetup_monitorOverlayFrame
 	case 0
@@ -256,16 +256,16 @@ event ObjectDraw
 
 	case 6
 	case 7
-		DrawSprite(18)
+		DrawSpriteFX(18, FX_FLIP, object.xpos, object.ypos)
 		break
 
 	case 12
 	case 13
-		DrawSprite(19)
+		DrawSpriteFX(19, FX_FLIP, object.xpos, object.ypos)
 		break
 
 	default
-		DrawSprite(object.propertyValue)
+		DrawSpriteFX(object.propertyValue, FX_FLIP, object.xpos, object.ypos)
 	end switch
 end event
 
