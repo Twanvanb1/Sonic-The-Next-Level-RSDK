@@ -261,6 +261,9 @@ event ObjectStartup
 	case 3
 		SetMusicTrack("GustPlanet3.ogg", TRACK_STAGE, MUSIC_LOOP_GPZ03)
 		break
+	case 4
+		SetMusicTrack("Boss.ogg", TRACK_STAGE, 0)
+		break
 	end switch
 
 	animalType1 = TypeName[Flicky]
