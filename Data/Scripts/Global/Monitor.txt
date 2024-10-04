@@ -161,7 +161,7 @@ event ObjectUpdate
 		object.yvel += 0x3800
 		object.ypos += object.yvel
 		if object.yvel >= 0
-			ObjectTileCollision(CSIDE_FLOOR, 0, 16, PATH_A)
+			ObjectTileCollision(CSIDE_FLOOR, 0, 15, PATH_A)
 			if checkResult == true
 				object.yvel = 0
 				object.state = MONITOR_STATE_IDLE
@@ -194,7 +194,7 @@ event ObjectUpdate
 				if player[currentPlayer].isSidekick == false // Only P1 should be able to break monitors
 
 					// See if P1 has collided with the monitor
-					BoxCollisionTest(C_TOUCH, object.entityPos, -16, -14, 16, 16, currentPlayer, player[currentPlayer].hitboxLeft, player[currentPlayer].hitboxTop, player[currentPlayer].hitboxRight, player[currentPlayer].hitboxBottom)
+					BoxCollisionTest(C_TOUCH, object.entityPos, -15, -15, 15, 15, currentPlayer, player[currentPlayer].hitboxLeft, player[currentPlayer].hitboxTop, player[currentPlayer].hitboxRight, player[currentPlayer].hitboxBottom)
 					if checkResult == true
 						// Start resetting this object
 						object.state = MONITOR_STATE_RISE
@@ -225,15 +225,15 @@ event ObjectUpdate
 					end if
 				else
 					// Simply act as a box for P2 since only P1 can break monitors
-					BoxCollisionTest(C_SOLID, object.entityPos, -15, -14, 15, 16, currentPlayer, C_BOX, C_BOX, C_BOX, C_BOX)
+					BoxCollisionTest(C_SOLID, object.entityPos, -15, -15, 15, 15, currentPlayer, C_BOX, C_BOX, C_BOX, C_BOX)
 				end if
 			else
 				// Player isn't in a state to break the monitor, just act as a solid box
-				BoxCollisionTest(C_SOLID, object.entityPos, -15, -14, 15, 16, currentPlayer, C_BOX, C_BOX, C_BOX, C_BOX)
+				BoxCollisionTest(C_SOLID, object.entityPos, -15, -15, 15, 15, currentPlayer, C_BOX, C_BOX, C_BOX, C_BOX)
 			end if
 		else
 			// Check if the player hit the monitor
-			BoxCollisionTest(C_SOLID, object.entityPos, -15, -16, 15, 16, currentPlayer, C_BOX, C_BOX, C_BOX, C_BOX)
+			BoxCollisionTest(C_SOLID, object.entityPos, -15, -15, 15, 15, currentPlayer, C_BOX, C_BOX, C_BOX, C_BOX)
 
 			// Did the player hit the monitor from underneath?
 			if checkResult == COL_BOTTOM
@@ -276,45 +276,45 @@ event ObjectStartup
 	// Monitor frames
 
 	// Base monitor sprite
-	SpriteFrame(-16, -16, 32, 32, 18, 1)
+	SpriteFrame(-16, -17, 32, 32, 18, 1)
 
 	// Icons
-	SpriteFrame(-8, -9, 16, 14, 51, 16) // 1 - MONITOR_RINGS
-	SpriteFrame(-8, -9, 16, 14, 68, 16) // 2 - MONITOR_SHIELD_BLUE
-	SpriteFrame(-8, -9, 16, 14, 51, 31) // 3 - MONITOR_INVINCIBILITY
-	SpriteFrame(-8, -9, 16, 14, 68, 31) // 4 - MONITOR_SPEEDSHOES
+	SpriteFrame(-8, -10, 16, 14, 51, 16) // 1 - MONITOR_RINGS
+	SpriteFrame(-8, -10, 16, 14, 68, 16) // 2 - MONITOR_SHIELD_BLUE
+	SpriteFrame(-8, -10, 16, 14, 51, 31) // 3 - MONITOR_INVINCIBILITY
+	SpriteFrame(-8, -10, 16, 14, 68, 31) // 4 - MONITOR_SPEEDSHOES
 #platform: USE_ORIGINS
 	if game.coinMode == false
 		if stage.playerListPos == PLAYER_AMY
-			SpriteFrame(-8, -9, 16, 14, 166, 118) // 5 - MONITOR_1UP_SONIC, except it's actually Amy
+			SpriteFrame(-8, -10, 16, 14, 166, 118) // 5 - MONITOR_1UP_SONIC, except it's actually Amy
 		else
-			SpriteFrame(-8, -9, 16, 14, 51, 46) // 5 - MONITOR_1UP_SONIC, actually Sonic this time
+			SpriteFrame(-8, -10, 16, 14, 51, 46) // 5 - MONITOR_1UP_SONIC, actually Sonic this time
 		end if
 #endplatform
 #platform: USE_STANDALONE
-		SpriteFrame(-8, -9, 16, 14, 51, 46) // 5 - MONITOR_1UP_SONIC
+		SpriteFrame(-8, -10, 16, 14, 51, 46) // 5 - MONITOR_1UP_SONIC
 #endplatform
-		SpriteFrame(-8, -9, 16, 14, 68, 46) // 6 - MONITOR_1UP_TAILS
-		SpriteFrame(-8, -9, 16, 14, 51, 61) // 7 - MONITOR_1UP_KNUX
+		SpriteFrame(-8, -10, 16, 14, 68, 46) // 6 - MONITOR_1UP_TAILS
+		SpriteFrame(-8, -10, 16, 14, 51, 61) // 7 - MONITOR_1UP_KNUX
 #platform: USE_ORIGINS
 	else
-		SpriteFrame(-8, -9, 16, 14, 35, 100) // 5 - MONITOR_1UP_SONIC (Coin)
-		SpriteFrame(-8, -9, 16, 14, 35, 100) // 6 - MONITOR_1UP_TAILS (Coin.. again)
-		SpriteFrame(-8, -9, 16, 14, 35, 100) // 7 - MONITOR_1UP_KNUX (Coin :D)
+		SpriteFrame(-8, -10, 16, 14, 35, 100) // 5 - MONITOR_1UP_SONIC (Coin)
+		SpriteFrame(-8, -10, 16, 14, 35, 100) // 6 - MONITOR_1UP_TAILS (Coin.. again)
+		SpriteFrame(-8, -10, 16, 14, 35, 100) // 7 - MONITOR_1UP_KNUX (Coin :D)
 	end if
 #endplatform
-	SpriteFrame(-8, -9, 16, 14, 68, 61) // 8 - MONITOR_SUPER
-	SpriteFrame(-8, -9, 16, 14, 51, 91) // 9 - MONITOR_SHIELD_BUBBLE
-	SpriteFrame(-8, -9, 16, 14, 68, 76) // 10 - MONITOR_SHIELD_FIRE
-	SpriteFrame(-8, -9, 16, 14, 51, 76) // 11 - MONITOR_SHIELD_LIGHTNING
-	SpriteFrame(-8, -9, 16, 14, 68, 91) // 12 - MONITOR_EGGMAN
-	SpriteFrame(-8, -9, 16, 14, 18, 100) // 13 - MONITOR_SHIELD_GOGGLES
-	SpriteFrame(-8, -9, 16, 14, 117, 26) // 14 - MONITOR_DEBUG_SPIKES
-	SpriteFrame(-8, -9, 16, 14, 117, 41) // 15 - MONITOR_DEBUG_SHIELD
-	SpriteFrame(-8, -9, 16, 14, 117, 56) // 16 - MONITOR_DEBUG_EMERALDS
-	SpriteFrame(-8, -9, 16, 14, 117, 71) // 17 - unknown, it points to a Goggles sprite but it was probably an actual icon in earlier vers of the sheet
-	SpriteFrame(-8, -9, 16, 14, 51, 1) // 18 - Static 1
-	SpriteFrame(-8, -9, 16, 14, 68, 1) // 19 - Static 2
+	SpriteFrame(-8, -10, 16, 14, 68, 61) // 8 - MONITOR_SUPER
+	SpriteFrame(-8, -10, 16, 14, 51, 91) // 9 - MONITOR_SHIELD_BUBBLE
+	SpriteFrame(-8, -10, 16, 14, 68, 76) // 10 - MONITOR_SHIELD_FIRE
+	SpriteFrame(-8, -10, 16, 14, 51, 76) // 11 - MONITOR_SHIELD_LIGHTNING
+	SpriteFrame(-8, -10, 16, 14, 68, 91) // 12 - MONITOR_EGGMAN
+	SpriteFrame(-8, -10, 16, 14, 18, 100) // 13 - MONITOR_SHIELD_GOGGLES
+	SpriteFrame(-8, -10, 16, 14, 117, 26) // 14 - MONITOR_DEBUG_SPIKES
+	SpriteFrame(-8, -10, 16, 14, 117, 41) // 15 - MONITOR_DEBUG_SHIELD
+	SpriteFrame(-8, -10, 16, 14, 117, 56) // 16 - MONITOR_DEBUG_EMERALDS
+	SpriteFrame(-8, -10, 16, 14, 117, 71) // 17 - unknown, it points to a Goggles sprite but it was probably an actual icon in earlier vers of the sheet
+	SpriteFrame(-8, -10, 16, 14, 51, 1) // 18 - Static 1
+	SpriteFrame(-8, -10, 16, 14, 68, 1) // 19 - Static 2
 	
 	Monitor_startDebugID = DebugMode_ObjCount
 	Monitor_startDebugID--
