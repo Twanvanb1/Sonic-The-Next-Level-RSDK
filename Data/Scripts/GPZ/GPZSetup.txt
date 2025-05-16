@@ -152,28 +152,67 @@ event ObjectUpdate
 		end if
 		break
 	case 2
-		object.paletteTimer++
-		GetTableValue(temp1, object.paletteRow, GPZSetup_palCycleDelayAct2)
-		if object.paletteTimer == temp1
-			object.paletteTimer = 0
+		object.paletteTimer += 42
+		if object.paletteTimer >= 0x100
+			object.paletteTimer -= 0x100
 
-			object.paletteRow++
-			object.paletteRow %= 14
+			object.paletteRow += 6
+			object.paletteRow %= 78
 
-			arrayPos0 = object.paletteRow
-			arrayPos0 += 14
-			arrayPos0 %= 14
-			arrayPos0 *= 6
-			temp0 = 0
-			while temp0 < 6
-				temp1 = 167
-				temp1 += temp0
-				GetTableValue(temp2, arrayPos0, GPZSetup_act2PalCycle)
-				SetPaletteEntry(0, temp1, temp2)
-				arrayPos0++
-				temp0++
-			loop			
+			temp1 = object.paletteRow
+			GetTableValue(temp0, temp1, GPZSetup_act2PalCycle)
+			SetPaletteEntry(6, 167, temp0)
+
+			temp1++
+			GetTableValue(temp0, temp1, GPZSetup_act2PalCycle)
+			SetPaletteEntry(6, 168, temp0)
+
+			temp1++
+			GetTableValue(temp0, temp1, GPZSetup_act2PalCycle)
+			SetPaletteEntry(6, 169, temp0)
+
+			temp1++
+			GetTableValue(temp0, temp1, GPZSetup_act2PalCycle)
+			SetPaletteEntry(6, 170, temp0)
+
+			temp1++
+			GetTableValue(temp0, temp1, GPZSetup_act2PalCycle)
+			SetPaletteEntry(6, 171, temp0)
+
+			temp1++
+			GetTableValue(temp0, temp1, GPZSetup_act2PalCycle)
+			SetPaletteEntry(6, 172, temp0)
+
+			temp1 = object.paletteRow
+			temp1 += 6
+			if temp1 >= 78
+				temp1 = 0
+			end if
+			GetTableValue(temp0, temp1, GPZSetup_act2PalCycle)
+			SetPaletteEntry(7, 167, temp0)
+
+			temp1++
+			GetTableValue(temp0, temp1, GPZSetup_act2PalCycle)
+			SetPaletteEntry(7, 168, temp0)
+
+			temp1++
+			GetTableValue(temp0, temp1, GPZSetup_act2PalCycle)
+			SetPaletteEntry(7, 169, temp0)
+
+			temp1++
+			GetTableValue(temp0, temp1, GPZSetup_act2PalCycle)
+			SetPaletteEntry(7, 170, temp0)
+
+			temp1++
+			GetTableValue(temp0, temp1, GPZSetup_act2PalCycle)
+			SetPaletteEntry(7, 171, temp0)
+
+			temp1++
+			GetTableValue(temp0, temp1, GPZSetup_act2PalCycle)
+			SetPaletteEntry(7, 172, temp0)
 		end if
+
+		SetPaletteFade(0, 6, 7, object.paletteTimer, 167, 172)
 
 		object.smallGearTimer++
 		if object.smallGearTimer > 3
@@ -205,27 +244,46 @@ event ObjectUpdate
 		break
 		
 	case 3
-		object.paletteTimer++
-		if object.paletteTimer > 8
-			object.paletteTimer = 0
+		object.paletteTimer += 32
+		if object.paletteTimer >= 0x100
+			object.paletteTimer -= 0x100
 
-			object.paletteRow++
-			object.paletteRow %= 7
+			object.paletteRow += 3
+			object.paletteRow %= 21
 
-			arrayPos0 = object.paletteRow
-			arrayPos0 += 7
-			arrayPos0 %= 7
-			arrayPos0 *= 3
-			temp0 = 0
-			while temp0 < 3
-				temp1 = 189
-				temp1 += temp0
-				GetTableValue(temp2, arrayPos0, GPZSetup_palCycleAct3)
-				SetPaletteEntry(0, temp1, temp2)
-				arrayPos0++
-				temp0++
-			loop			
+			
+			temp1 = object.paletteRow
+			GetTableValue(temp0, temp1, GPZSetup_palCycleAct3)
+			SetPaletteEntry(6, 189, temp0)
+
+			temp1++
+			GetTableValue(temp0, temp1, GPZSetup_palCycleAct3)
+			SetPaletteEntry(6, 190, temp0)
+
+			temp1++
+			GetTableValue(temp0, temp1, GPZSetup_palCycleAct3)
+			SetPaletteEntry(6, 191, temp0)
+
+			temp1 = object.paletteRow
+			temp1 += 3
+
+			if temp1 >= 21
+				temp1 = 0
+			end if
+
+			GetTableValue(temp0, temp1, GPZSetup_palCycleAct3)
+			SetPaletteEntry(7, 189, temp0)
+
+			temp1++
+			GetTableValue(temp0, temp1, GPZSetup_palCycleAct3)
+			SetPaletteEntry(7, 190, temp0)
+
+			temp1++
+			GetTableValue(temp0, temp1, GPZSetup_palCycleAct3)
+			SetPaletteEntry(7, 191, temp0)	
 		end if
+
+		SetPaletteFade(0, 6, 7, object.paletteTimer, 189, 191)
 		break
 
 	case 4 // yes this is the boss act
